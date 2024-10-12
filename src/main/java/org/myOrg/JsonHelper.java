@@ -1,4 +1,4 @@
-package org.myOrg;
+package org.myorg;
 
 import org.json.JSONObject;
 

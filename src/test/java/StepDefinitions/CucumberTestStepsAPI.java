@@ -3,8 +3,8 @@ package StepDefinitions;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.json.JSONObject;
-import org.myOrg.ApiHelper;
-import org.myOrg.JsonHelper;
+import org.myorg.ApiHelper;
+import org.myorg.JsonHelper;
 
 import java.util.HashMap;
 

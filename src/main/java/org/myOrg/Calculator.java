@@ -1,4 +1,4 @@
-package org.myOrg;
+package org.myorg;
 public class Calculator {
     public int add(int x, int y){
         return x+y;
@@ -13,6 +13,7 @@ public class Calculator {
     }
 
     public int div(int x, int y){
+        //integer used just for simplicity
         return x/y;
     }
 }

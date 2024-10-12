@@ -1,6 +1,4 @@
-package org.myOrg;
-
-import org.json.JSONObject;
+package org.myorg;
 
 import java.io.IOException;
 import java.net.URI;
