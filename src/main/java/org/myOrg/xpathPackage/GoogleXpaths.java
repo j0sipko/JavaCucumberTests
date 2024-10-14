@@ -12,9 +12,13 @@ public class GoogleXpaths {
         return "//.[@id=\"endpoint\"]//*[contains(text(),'" + sortName + "')]";
     }
     public static final String videosOnPageXpath = "//*[@id=\"contents\"]/ytd-video-renderer";
-    public static final String ytVideoXpath(int index){
+    public static final String ytVidChannelXpath(int index){
         return "//*[@id=\"contents\"]/ytd-video-renderer[" + index + "]//*[@id=\"channel-info\"]" +
                 "//*[@class=\"style-scope ytd-channel-name\"]//a";
+    }
+
+    public static final String ytVideoTitleXpath(int index){
+        return "//*[@id=\"contents\"]/ytd-video-renderer[" + index + "]//*[@id=\"video-title\"]";
     }
 
 }

@@ -12,15 +12,12 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class CucumberTestStepsSelenium {
     private WebDriver webDriver;
@@ -80,12 +77,12 @@ public class CucumberTestStepsSelenium {
         searchField.sendKeys(text);
         searchField.sendKeys(Keys.RETURN);
     }
-    //button[@aria-label="Search filters"]
 
     @When("^Filter youtube videos by (.*)$")
     public void filterYoutubeVideos(String filterName) {
         seleniumHelper.waitForElementToBeClickable(GoogleXpaths.youtubeSearchFilterXpath).click();
         seleniumHelper.waitForElementToBeClickable(GoogleXpaths.ytSortByXpath(filterName)).click();
+        seleniumHelper.waitForMilis(1000);
     }
 
     @Then("^Check if (.*). result is from (.*)$")
@@ -93,8 +90,19 @@ public class CucumberTestStepsSelenium {
         List<WebElement> videos = webDriver.findElements(By.xpath(GoogleXpaths.videosOnPageXpath));
         if (index<1 || index>(videos.size()+1))
             assertFalse( "first page does not contain " + index + " videos!", true);
-        seleniumHelper.waitForMilis(1000);
-        WebElement videoEl = seleniumHelper.getElementByXpath(GoogleXpaths.ytVideoXpath(index));
+        WebElement videoEl = seleniumHelper.getElementByXpath(GoogleXpaths.ytVidChannelXpath(index));
         assertEquals("Incorrect video channel!", channelName, videoEl.getText());
+    }
+
+    @Then("^Check if (.*). video title contains (.*)$")
+    public void checkTitle(int index, String videoTitle) {
+        List<WebElement> videos = webDriver.findElements(By.xpath(GoogleXpaths.videosOnPageXpath));
+        if (index<1 || index>(videos.size()+1))
+            assertFalse( "first page does not contain " + index + " videos!", true);
+        String titleXpath = GoogleXpaths.ytVideoTitleXpath(index);
+        WebElement videoEl = seleniumHelper.getElementByXpath(titleXpath);
+        String actualTitle = videoEl.getAttribute("title");
+        assertTrue(index + ". title xpath: \"" + titleXpath + "\"\nActual title: \"" + actualTitle
+                        + "\"\nDoes not contain text: \"" + videoTitle + "\"", actualTitle.contains(videoTitle));
     }
 }
